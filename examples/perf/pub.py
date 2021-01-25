@@ -5,7 +5,7 @@ def main():
     m = MessageQueue()
     m.connect()
     while True:
-        m.send_message('random', f'My message {i}.')
+        m.send_message('random', f'My message.')
 
 
 if __name__ == '__main__':
