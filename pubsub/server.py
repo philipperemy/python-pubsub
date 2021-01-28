@@ -28,13 +28,14 @@ import signal
 import socket
 import sys
 import time
+import traceback
 import uuid
 from multiprocessing import Process
 from socketserver import BaseRequestHandler, ThreadingMixIn, TCPServer
-import traceback
+
 from pubsub.common import ConnectionClosed, get_message, send_message
 
-ADDRESS = '0.0.0.0'
+ADDRESS = '127.0.0.1'
 PORT = 6747  # spells MSGQ (message queue)
 
 
@@ -166,6 +167,7 @@ def signal_handler(signal, frame):
 def message_queue_process():
     print('Starting message queue')
     server = ThreadedTCPServer((ADDRESS, PORT), TCPRequestHandler)
+    server.socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
     server.timeout = 1
     while not ThreadedTCPServer.EXITING:
         server.handle_request()
