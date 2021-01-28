@@ -46,6 +46,8 @@ class MessageQueue(object):
 
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.settimeout(30)
+        self.socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+
         self.socket.connect((self.server, self.port))
         self.connection_id, self.welcome_message = get_message(self.socket)
 
