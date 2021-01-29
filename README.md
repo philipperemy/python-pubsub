@@ -5,6 +5,7 @@ It can be considered as as fork of the project: [CoreMQ](https://github.com/deej
 
 This implementation handles:
 - 26K messages per second.
+- `TCP_NODELAY` flag activated for latency sensitive applications.
 - Many publishers.
 - Many subscribers.
 - Multiple channels.
