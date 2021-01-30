@@ -45,6 +45,9 @@ class ThreadedTCPServer(ThreadingMixIn, TCPServer):
     HISTORY = dict()
 
 
+ThreadedTCPServer.allow_reuse_address = True
+
+
 class TCPRequestHandler(BaseRequestHandler):
     connections = dict()
 
