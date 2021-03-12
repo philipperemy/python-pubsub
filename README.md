@@ -20,38 +20,3 @@ pip install python-pubsub
 
 Refer to the [examples](examples).
 
-
-## Misc
-
-Visualization provided by https://sketchviz.com/.
-
-```
-# http://www.graphviz.org/content/cluster
-
-digraph G {
-  graph [fontname = "Handlee"];
-  node [fontname = "Handlee"];
-  edge [fontname = "Handlee"];
-
-  bgcolor=transparent;
-
-  subgraph cluster_0 {
-    style=filled;
-    color=lightgrey;
-    node [style=filled,color=pink];
-    "publisher 1" -> "broker"[label="publish to c1"]
-    "publisher 1" -> "broker"[label="publish to  c2"]
-    "publisher 2" -> "broker"[label="publish to  c1"]
-    "publisher 3" -> "broker"[label="publish to  c2"]
-    "subscriber 1" -> "broker"[label="subscribe to c1"]
-    "subscriber 2" -> "broker"[label="subscribe to c2"]
-    "broker" -> "subscriber 1"[label=""]
-    "broker" -> "subscriber 2"[label=""]
-    
-    label = "*Publisher / Subscriber broker*";
-    fontsize = 20;
-  }
-
-  broker [shape=Mdiamond];
-}
-```
