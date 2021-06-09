@@ -2,6 +2,8 @@ import random
 
 from pubsub import MessageQueue
 
+# Start the broker with the command: start_pubsub_broker
+
 
 def prime_numbers():
     for num in range(1, 1001):
