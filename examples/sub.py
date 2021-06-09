@@ -1,5 +1,7 @@
 from pubsub import MessageQueue
 
+# Start the broker with the command: start_pubsub_broker
+
 m = MessageQueue()
 m.connect()
 m.subscribe('prime')
