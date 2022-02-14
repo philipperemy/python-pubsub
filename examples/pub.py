@@ -1,7 +1,7 @@
 import random
 
 from pubsub import MessageQueue
-
+from time import sleep
 # Start the broker with the command: start_pubsub_broker
 
 
@@ -17,13 +17,17 @@ def prime_numbers():
 def main():
     m = MessageQueue()
     m.connect()
+    count = 0
     print(m.welcome_message)
     pub_id = random.randint(0, 1000)
     print(f'Publisher ID: {pub_id}.')
 
     def publish(channel, msg):
+        nonlocal count
+        count += 1
         msg += f' Publisher Id is [{pub_id}].'
-        print(f'PUBLISH: {msg}.')
+        print(f'PUBLISH {count}: {msg}.')
+        sleep(0.0001)
         m.send_message(channel, msg)
 
     for prime in prime_numbers():

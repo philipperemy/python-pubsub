@@ -75,10 +75,10 @@ class MessageQueue(object):
             self.connect()
             send_message(self.socket, queue, message)
 
-        try:
-            return self.get_message()
-        except socket.error:
-            return None, None
+        # try:
+        #     return self.get_message()
+        # except socket.error:
+        #     return None, None
 
     def get_message(self, timeout=1):
         if not self.socket:
@@ -88,10 +88,6 @@ class MessageQueue(object):
             queue, message = get_message(self.socket, timeout=timeout)
         except socket.timeout:
             return None, None
-        except JSONDecodeError:
-            return None, None
-        except ProtocolError:
-            return None, None
         except socket.error:
             # attempt to reconnect if there was a connection error
             self.close()
@@ -99,10 +95,6 @@ class MessageQueue(object):
             try:
                 queue, message = get_message(self.socket, timeout=timeout)
             except socket.timeout:
-                return None, None
-            except JSONDecodeError:
-                return None, None
-            except ProtocolError:
                 return None, None
 
         if 'response' in message and message['response'] == 'BYE':
