@@ -25,8 +25,9 @@ SOFTWARE.
 """
 
 import socket
+from json import JSONDecodeError
 
-from pubsub.common import get_message, send_message
+from pubsub.common import get_message, send_message, ProtocolError
 
 
 class MessageQueue(object):
@@ -87,6 +88,10 @@ class MessageQueue(object):
             queue, message = get_message(self.socket, timeout=timeout)
         except socket.timeout:
             return None, None
+        except JSONDecodeError:
+            return None, None
+        except ProtocolError:
+            return None, None
         except socket.error:
             # attempt to reconnect if there was a connection error
             self.close()
@@ -94,6 +99,10 @@ class MessageQueue(object):
             try:
                 queue, message = get_message(self.socket, timeout=timeout)
             except socket.timeout:
+                return None, None
+            except JSONDecodeError:
+                return None, None
+            except ProtocolError:
                 return None, None
 
         if 'response' in message and message['response'] == 'BYE':

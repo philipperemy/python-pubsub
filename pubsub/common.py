@@ -83,7 +83,7 @@ def send_message(socket, queue, message):
 
 def get_message(socket, timeout=1):
     socket.settimeout(timeout)
-    data = socket.recv(1000).decode('utf-8')
+    data = socket.recv(10).decode('utf-8')
     expected_length, data = validate_header(data)
 
     while len(data) < expected_length:
